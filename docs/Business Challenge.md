@@ -1,0 +1,3 @@
+# Business Challenge
+
+<div>At present, the census is conducted through traditional means, primarily census takers that canvas households in person to "count heads".  This manual survey is augmented, to some extent, by analytics models that can estimate a completed count given an initial data set that has been manually collected.  This process is time consuming and expensive, given the need for census personnel in all regions of the country and is, arguably, prone to errors if analytics models are biased in any way.</div><div><br></div><div>The business goal, therefore, is to reduce the cost and time of the census count while improving trust and accuracy.<br></div>

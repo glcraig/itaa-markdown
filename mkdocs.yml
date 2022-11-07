@@ -1,13 +1,11 @@
-# This is an example mkdocs.yml file, it will be overwritten during the GitHub Pages exporting
-
 # Site Information
-site_name: {architecture_name}
-site_url: "https://pages.github.ibm.com/{github_account}/{repo}"
-# site_description: {architecture_name}
+site_name: Sample Solution Architecture
+site_url: git@github.com:glcraig/itaa-markdown
+# site_description: Sample Solution Architecture
 
 # # Repository Information
-# repo_name: '{repo}'
-# repo_url: 'https://github.ibm.com/{github_account}/{repo}'
+# repo_name: itaa-markdown
+# repo_url: git@github.com:glcraig/itaa-markdown
 # edit_uri: 'edit/main/docs'
 docs_dir: 'docs'
 # # site_dir: 'site'
@@ -15,25 +13,205 @@ docs_dir: 'docs'
 # remote_name: 'origin'
 
 # Server info
-dev_addr: '127.0.0.1:8000'
+# dev_addr: '127.0.0.1:8000'
 
 nav:
+
   - Table of Content: 
-    - Information: index.md
-    # ...
+
+    - 0. Information: index.md
+
+    - 1. Overview: Overview.md
+
+    - 2. Scope: 
+
+      - 2.1 Business Challenge: 
+
+        - 'Business Challenge' : Business Challenge.md
+
+      - 2.2 System Context: 
+
+        - 'ECS System Context' : System Context.md
+
+    - 3. Requirement: 
+
+      - 3.1 Use Case Model: 
+
+        - 3.1.1 Use Case Diagram: 
+
+          - 'ECS Use Case Diagram' : Use Case Diagram/usecasediagram_r1zX-r-ct5YO_r13-bc9lY_BJK24keC9.md
+
+        - 3.1.2 Use Case: 
+
+          - 'Respondent Logon' : Use Case/uc_BynPlr-5Y5YO_r13-bc9lY_BJK24keC9.md
+
+          - 'Setup' : Use Case/uc_r1Iuer-cYqt__r13-bc9lY_BJK24keC9.md
+
+          - 'Populate Address' : Use Case/uc_B1gderb5Y5tO_r13-bc9lY_BJK24keC9.md
+
+          - 'Add Person' : Use Case/uc_SJLPgBZcYqtd_r13-bc9lY_BJK24keC9.md
+
+          - 'Delete Person' : Use Case/uc_r1VvgSWcF9FO_r13-bc9lY_BJK24keC9.md
+
+          - 'Save Form' : Use Case/uc_rk4_gHZqt5Kd_r13-bc9lY_BJK24keC9.md
+
+          - 'Provide Person Data' : Use Case/uc_SyAvlHWcYcKu_r13-bc9lY_BJK24keC9.md
+
+          - 'Provide Dwelling Data' : Use Case/uc_B1cDgrW5Y5K__r13-bc9lY_BJK24keC9.md
+
+          - 'Complete Section' : Use Case/uc_SJODxH-qF9Yd_r13-bc9lY_BJK24keC9.md
+
+          - 'Submit Form' : Use Case/uc_r1nOxrb9Y5tu_r13-bc9lY_BJK24keC9.md
+
+          - 'View Information' : Use Case/uc_HkR_gBb9FqKO_r13-bc9lY_BJK24keC9.md
+
+          - 'Exit' : Use Case/uc_SJM_xHZqK5Kd_r13-bc9lY_BJK24keC9.md
+
+          - 'Transfer Management Information' : Use Case/uc_B1qOxHb9F5tu_r13-bc9lY_BJK24keC9.md
+
+          - 'Delete Transferred Data' : Use Case/uc_rJltlBZqK5t__r13-bc9lY_BJK24keC9.md
+
+          - 'Transfer Un-submitted Data' : Use Case/uc_rkOdlHbcKqtd_r13-bc9lY_BJK24keC9.md
+
+      - 3.2 Functional Requirements: 
+
+        - 'first' : Functional Requirements/functionalrequirement_HyfwbSW5Y5Fu_r13-bc9lY_BJK24keC9.md
+
+      - 3.3 Non Functional Requirements: 
+
+        - 'test' : Non Functional Requirements/nonfunctionalrequirement_BJ29gSZcY5Ku_r13-bc9lY_BJK24keC9.md
+
+        - 'Capacity during census enumeration period.' : Non Functional Requirements/nfr_HJ55lSW9t9YO_r13-bc9lY_BJK24keC9.md
+
+        - 'Device Support' : Non Functional Requirements/nfr_Hy89lHbcY5tO_r13-bc9lY_BJK24keC9.md
+
+        - 'Peak System Load' : Non Functional Requirements/nfr_Hkaqer-cKqKu_r13-bc9lY_BJK24keC9.md
+
+        - 'Overall Capacity' : Non Functional Requirements/nfr_BJkigBZqFcFd_r13-bc9lY_BJK24keC9.md
+
+        - 'Transaction Processing Time' : Non Functional Requirements/nfr_Hkv5lBZ9tqtd_r13-bc9lY_BJK24keC9.md
+
+        - 'Overall response time' : Non Functional Requirements/nfr_BJAcxrWqK5YO_r13-bc9lY_BJK24keC9.md
+
+        - 'Operation Hours' : Non Functional Requirements/nfr_rJlsxHb9t5Yu_r13-bc9lY_BJK24keC9.md
+
+        - 'Availability' : Non Functional Requirements/nfr_r1_qgSZct9Fd_r13-bc9lY_BJK24keC9.md
+
+        - 'Audit Trail' : Non Functional Requirements/nfr_SyKqgrb5KqYd_r13-bc9lY_BJK24keC9.md
+
+        - 'Browser support' : Non Functional Requirements/nfr_HJsclrWcKqKu_r13-bc9lY_BJK24keC9.md
+
+    - 4. Data Model: 
+
+      - 4.1 Logical Data Model: 
+
+        - 'High Level ECS Data Model' : Logical Data Model/logicalerd_SkSeXBZcF9Kd_r13-bc9lY_BJK24keC9.md
+
+    - 5. Architecture: 
+
+      - 5.1 Architecture Overview: 
+
+        - 5.1.1 Services View: 
+
+          - 'ECS Services' : Services View/aodservices_2SjGFR5cKyw_r13-bc9lY_BJK24keC9.md
+
+        - 5.1.3 IT System View: 
+
+          - 'ECS Base' : IT System View/aoditsystem_SJ5yHK9eF_r13-bc9lY_BJK24keC9.md
+
+        - 5.1.4 Usage Scenario: 
+
+          - 'Main Respondent Flow' : Usage Scenario/aodusagescenario_2UXGd2EfvkZ_r13-bc9lY_BJK24keC9.md
+
+      - 5.2 Architectural Decisions: 
+
+        - 'Web application architecture' : Architectural Decisions/architecturaldecision_Syf3grWqK5td_r13-bc9lY_BJK24keC9.md
+
+        - 'AJAX Server Interaction model' : Architectural Decisions/architecturaldecision_H183lrbqtqK__r13-bc9lY_BJK24keC9.md
+
+        - 'Externalized form definitions and validation rules' : Architectural Decisions/architecturaldecision_SyRaxBb9YcF__r13-bc9lY_BJK24keC9.md
+
+        - 'Data storage format' : Architectural Decisions/architecturaldecision_ry96eBZ9t9tu_r13-bc9lY_BJK24keC9.md
+
+        - 'On device data lifecycle' : Architectural Decisions/architecturaldecision_SknigSbcK5t__r13-bc9lY_BJK24keC9.md
+
+        - 'Lifecycle of the respondents&#39; data on the ECS database' : Architectural Decisions/architecturaldecision_HyGseBW9tcYu_r13-bc9lY_BJK24keC9.md
+
+        - 'Framework to be used for mobile application development' : Architectural Decisions/architecturaldecision_BJyaeB-cF5tu_r13-bc9lY_BJK24keC9.md
+
+        - 'What cloud service model to use' : Architectural Decisions/architecturaldecision_BJBTlHbcK5Kd_r13-bc9lY_BJK24keC9.md
+
+        - 'Cloud Offering' : Architectural Decisions/architecturaldecision_S1ujxHWcK5Y__r13-bc9lY_BJK24keC9.md
+
+        - 'API Gateway Realization Decision' : Architectural Decisions/architecturaldecision_r1M6lHW5tqFd_r13-bc9lY_BJK24keC9.md
+
+        - 'Application Server Realization Decision' : Architectural Decisions/architecturaldecision_r1rier-5K5Yu_r13-bc9lY_BJK24keC9.md
+
+        - 'Form Handling Realization Decision' : Architectural Decisions/architecturaldecision_rytnxr-9t9Fd_r13-bc9lY_BJK24keC9.md
+
+        - 'RDBMS Realization Decision' : Architectural Decisions/architecturaldecision_B1hhxSbqKqF__r13-bc9lY_BJK24keC9.md
+
+        - 'Forward Proxy Realization Decision' : Architectural Decisions/architecturaldecision_rkk2lSZqF9td_r13-bc9lY_BJK24keC9.md
+
+      - 5.3 Component Model: 
+
+        - 5.3.1 Static View: 
+
+          - 'ECS Static View' : Static View/cmstaticview_2VSZD2lD7RK_r13-bc9lY_BJK24keC9.md
+
+        - 5.3.2 Sequence View: 
+
+          - 'SD - UC_01 Logon' : Sequence View/cmdynamicview_rknuMrZcFqKO_r13-bc9lY_BJK24keC9.md
+
+          - 'SD - UC_12 Submit Form (from mobile device)' : Sequence View/cmdynamicview_rkImMS-cKqFd_r13-bc9lY_BJK24keC9.md
+
+          - 'SD - UC_19 Transfer Management Information' : Sequence View/cmdynamicview_B19eGrZ5tqYO_r13-bc9lY_BJK24keC9.md
+
+      - 5.4 Operational Model: 
+
+        - 5.4.1 Logical Operational View: 
+
+          - 'Logical Location View - Initial' : Logical Operational View/lomview_rk4vWH-qt9KO_r13-bc9lY_BJK24keC9.md
+
+          - 'LOM - Base' : Logical Operational View/lomview_S18vZHZqK9FO_r13-bc9lY_BJK24keC9.md
+
+          - 'LOM Base - new' : Logical Operational View/lomview_SJ4GogkCd_r13-bc9lY_BJK24keC9.md
+
+    - 10. Misc Diagram: 
+
+      - 'Node Legend' : Misc Diagram/miscdiagram_2YqpSy18GKm_r13-bc9lY_BJK24keC9.md
+
+    - 11. Notes: 
+
+      - 'Definitions' : Notes/notes_BkpMWSWct9Yd_r13-bc9lY_BJK24keC9.md
+
+      - 'Deployment Unit (DU) Mapping' : Notes/notes_rkJ7WS-9F5Fd_r13-bc9lY_BJK24keC9.md
+
+
+   
+       
+
 
 markdown_extensions:
+
   - md_in_html
+
   - toc:
+
       permalink: True
+
   - footnotes
+
   - tables
+
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+
   - attr_list
 
 theme:
+
   name: material
   palette:
     primary: 'black'
@@ -42,7 +220,7 @@ theme:
     text: 'IBM Plex Sans'
     code: 'IBM Plex Mono'
   logo: assets/ca.svg
-  favicon: assets/ca.svg     
+  favicon: assets/ca.svg 
   features:
     # - navigation.tabs
     - navigation.tabs.sticky
