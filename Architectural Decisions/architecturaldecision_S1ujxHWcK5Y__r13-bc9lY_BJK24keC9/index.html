@@ -1,0 +1,2375 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://github.com/glcraig/itaa-markdown/Architectural%20Decisions/architecturaldecision_S1ujxHWcK5Y__r13-bc9lY_BJK24keC9/">
+      
+      <link rel="icon" href="../../assets/ca.svg">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.2">
+    
+    
+      
+        <title>Cloud Offering - Sample Solution Architecture</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.69437709.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#000000">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,700,700i%7CIBM+Plex+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"IBM Plex Sans";--md-code-font:"IBM Plex Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="black" data-md-color-accent="red">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ad-0045" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Sample Solution Architecture" class="md-header__button md-logo" aria-label="Sample Solution Architecture" data-md-component="logo">
+      
+  <img src="../../assets/ca.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sample Solution Architecture
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Cloud Offering
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Sample Solution Architecture" class="md-nav__button md-logo" aria-label="Sample Solution Architecture" data-md-component="logo">
+      
+  <img src="../../assets/ca.svg" alt="logo">
+
+    </a>
+    Sample Solution Architecture
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Table of Content
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Table of Content" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Table of Content
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        0. Information
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Overview/" class="md-nav__link">
+        1. Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_3" type="checkbox" id="__nav_1_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_3">
+          2. Scope
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="2. Scope" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          2. Scope
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_3_1" type="checkbox" id="__nav_1_3_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_3_1">
+          2.1 Business Challenge
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="2.1 Business Challenge" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          2.1 Business Challenge
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Business%20Challenge/" class="md-nav__link">
+        Business Challenge
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_3_2" type="checkbox" id="__nav_1_3_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_3_2">
+          2.2 System Context
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="2.2 System Context" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          2.2 System Context
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../System%20Context/" class="md-nav__link">
+        ECS System Context
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4" type="checkbox" id="__nav_1_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_4">
+          3. Requirement
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="3. Requirement" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          3. Requirement
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4_1" type="checkbox" id="__nav_1_4_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_4_1">
+          3.1 Use Case Model
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="3.1 Use Case Model" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          3.1 Use Case Model
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4_1_1" type="checkbox" id="__nav_1_4_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_4_1_1">
+          3.1.1 Use Case Diagram
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="3.1.1 Use Case Diagram" data-md-level="4">
+        <label class="md-nav__title" for="__nav_1_4_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          3.1.1 Use Case Diagram
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Use%20Case%20Diagram/usecasediagram_r1zX-r-ct5YO_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        ECS Use Case Diagram
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4_1_2" type="checkbox" id="__nav_1_4_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_4_1_2">
+          3.1.2 Use Case
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="3.1.2 Use Case" data-md-level="4">
+        <label class="md-nav__title" for="__nav_1_4_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          3.1.2 Use Case
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Use%20Case/uc_BynPlr-5Y5YO_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Respondent Logon
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Use%20Case/uc_r1Iuer-cYqt__r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Setup
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Use%20Case/uc_B1gderb5Y5tO_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Populate Address
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Use%20Case/uc_SJLPgBZcYqtd_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Add Person
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Use%20Case/uc_r1VvgSWcF9FO_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Delete Person
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Use%20Case/uc_rk4_gHZqt5Kd_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Save Form
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Use%20Case/uc_SyAvlHWcYcKu_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Provide Person Data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Use%20Case/uc_B1cDgrW5Y5K__r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Provide Dwelling Data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Use%20Case/uc_SJODxH-qF9Yd_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Complete Section
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Use%20Case/uc_r1nOxrb9Y5tu_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Submit Form
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Use%20Case/uc_HkR_gBb9FqKO_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        View Information
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Use%20Case/uc_SJM_xHZqK5Kd_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Exit
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Use%20Case/uc_B1qOxHb9F5tu_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Transfer Management Information
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Use%20Case/uc_rJltlBZqK5t__r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Delete Transferred Data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Use%20Case/uc_rkOdlHbcKqtd_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Transfer Un-submitted Data
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4_2" type="checkbox" id="__nav_1_4_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_4_2">
+          3.2 Functional Requirements
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="3.2 Functional Requirements" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          3.2 Functional Requirements
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Functional%20Requirements/functionalrequirement_HyfwbSW5Y5Fu_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        first
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4_3" type="checkbox" id="__nav_1_4_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_4_3">
+          3.3 Non Functional Requirements
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="3.3 Non Functional Requirements" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          3.3 Non Functional Requirements
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Non%20Functional%20Requirements/nonfunctionalrequirement_BJ29gSZcY5Ku_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        test
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Non%20Functional%20Requirements/nfr_HJ55lSW9t9YO_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Capacity during census enumeration period.
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Non%20Functional%20Requirements/nfr_Hy89lHbcY5tO_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Device Support
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Non%20Functional%20Requirements/nfr_Hkaqer-cKqKu_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Peak System Load
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Non%20Functional%20Requirements/nfr_BJkigBZqFcFd_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Overall Capacity
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Non%20Functional%20Requirements/nfr_Hkv5lBZ9tqtd_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Transaction Processing Time
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Non%20Functional%20Requirements/nfr_BJAcxrWqK5YO_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Overall response time
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Non%20Functional%20Requirements/nfr_rJlsxHb9t5Yu_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Operation Hours
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Non%20Functional%20Requirements/nfr_r1_qgSZct9Fd_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Availability
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Non%20Functional%20Requirements/nfr_SyKqgrb5KqYd_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Audit Trail
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Non%20Functional%20Requirements/nfr_HJsclrWcKqKu_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Browser support
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_5" type="checkbox" id="__nav_1_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_5">
+          4. Data Model
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="4. Data Model" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          4. Data Model
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_5_1" type="checkbox" id="__nav_1_5_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_5_1">
+          4.1 Logical Data Model
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="4.1 Logical Data Model" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_5_1">
+          <span class="md-nav__icon md-icon"></span>
+          4.1 Logical Data Model
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Logical%20Data%20Model/logicalerd_SkSeXBZcF9Kd_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        High Level ECS Data Model
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6" type="checkbox" id="__nav_1_6" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6">
+          5. Architecture
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="5. Architecture" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          5. Architecture
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_1" type="checkbox" id="__nav_1_6_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_1">
+          5.1 Architecture Overview
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="5.1 Architecture Overview" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          5.1 Architecture Overview
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_1_1" type="checkbox" id="__nav_1_6_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_1_1">
+          5.1.1 Services View
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="5.1.1 Services View" data-md-level="4">
+        <label class="md-nav__title" for="__nav_1_6_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          5.1.1 Services View
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Services%20View/aodservices_2SjGFR5cKyw_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        ECS Services
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_1_2" type="checkbox" id="__nav_1_6_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_1_2">
+          5.1.3 IT System View
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="5.1.3 IT System View" data-md-level="4">
+        <label class="md-nav__title" for="__nav_1_6_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          5.1.3 IT System View
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../IT%20System%20View/aoditsystem_SJ5yHK9eF_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        ECS Base
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_1_3" type="checkbox" id="__nav_1_6_1_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_1_3">
+          5.1.4 Usage Scenario
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="5.1.4 Usage Scenario" data-md-level="4">
+        <label class="md-nav__title" for="__nav_1_6_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          5.1.4 Usage Scenario
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Usage%20Scenario/aodusagescenario_2UXGd2EfvkZ_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Main Respondent Flow
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_2" type="checkbox" id="__nav_1_6_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_2">
+          5.2 Architectural Decisions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="5.2 Architectural Decisions" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          5.2 Architectural Decisions
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecturaldecision_Syf3grWqK5td_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Web application architecture
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecturaldecision_H183lrbqtqK__r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        AJAX Server Interaction model
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecturaldecision_SyRaxBb9YcF__r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Externalized form definitions and validation rules
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecturaldecision_ry96eBZ9t9tu_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Data storage format
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecturaldecision_SknigSbcK5t__r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        On device data lifecycle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecturaldecision_HyGseBW9tcYu_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Lifecycle of the respondents&#39; data on the ECS database
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecturaldecision_BJyaeB-cF5tu_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Framework to be used for mobile application development
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecturaldecision_BJBTlHbcK5Kd_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        What cloud service model to use
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Cloud Offering
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Cloud Offering
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary __page_structure" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_page" type="checkbox" checked id="__nav_page">
+    <label id="__label_nav_page" class="md-nav__title md-nav__link page_structure" for="__nav_page">
+      On This Page
+      <span class="md-nav__icon md-icon" style="display: block;"></span>
+      </label>
+    </label>
+    <ul class="md-nav__list __list_nav_page" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#name" class="md-nav__link">
+    Name
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#status" class="md-nav__link">
+    Status
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#last-update" class="md-nav__link">
+    Last Update
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subject-area" class="md-nav__link">
+    Subject Area
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#topic" class="md-nav__link">
+    Topic
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#issue-or-problem-statement" class="md-nav__link">
+    Issue or Problem Statement
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assumptions" class="md-nav__link">
+    Assumptions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#motivation" class="md-nav__link">
+    Motivation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternatives" class="md-nav__link">
+    Alternatives
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision" class="md-nav__link">
+    Decision
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#justification" class="md-nav__link">
+    Justification
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implications" class="md-nav__link">
+    Implications
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#derived-requirements" class="md-nav__link">
+    Derived Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-decisions" class="md-nav__link">
+    Related Decisions
+  </a>
+  
+</li>
+      
+    </ul>
+  
+  
+  
+</nav>
+
+<script>
+  var expand = document.getElementById('__nav_page');
+  var btn = document.getElementById('__label_nav_page');
+  var page = document.getElementsByClassName('__page_structure');
+  var list = document.getElementsByClassName('__list_nav_page');
+  if(expand){
+    expand.oninput = function () {
+      if (expand.checked) {
+        page[1].classList.remove('collapsed');
+        // list[1].classList.remove('collapsed');
+      }
+      else {
+        page[1].classList.add('collapsed');
+        // list[1].classList.add('collapsed');
+      }
+    }
+  }
+  
+</script>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecturaldecision_r1M6lHW5tqFd_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        API Gateway Realization Decision
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecturaldecision_r1rier-5K5Yu_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Application Server Realization Decision
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecturaldecision_rytnxr-9t9Fd_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Form Handling Realization Decision
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecturaldecision_B1hhxSbqKqF__r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        RDBMS Realization Decision
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecturaldecision_rkk2lSZqF9td_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Forward Proxy Realization Decision
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_3" type="checkbox" id="__nav_1_6_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_3">
+          5.3 Component Model
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="5.3 Component Model" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          5.3 Component Model
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_3_1" type="checkbox" id="__nav_1_6_3_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_3_1">
+          5.3.1 Static View
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="5.3.1 Static View" data-md-level="4">
+        <label class="md-nav__title" for="__nav_1_6_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          5.3.1 Static View
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Static%20View/cmstaticview_2VSZD2lD7RK_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        ECS Static View
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_3_2" type="checkbox" id="__nav_1_6_3_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_3_2">
+          5.3.2 Sequence View
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="5.3.2 Sequence View" data-md-level="4">
+        <label class="md-nav__title" for="__nav_1_6_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          5.3.2 Sequence View
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Sequence%20View/cmdynamicview_rknuMrZcFqKO_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        SD - UC_01 Logon
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Sequence%20View/cmdynamicview_rkImMS-cKqFd_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        SD - UC_12 Submit Form (from mobile device)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Sequence%20View/cmdynamicview_B19eGrZ5tqYO_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        SD - UC_19 Transfer Management Information
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_4" type="checkbox" id="__nav_1_6_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_4">
+          5.4 Operational Model
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="5.4 Operational Model" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_6_4">
+          <span class="md-nav__icon md-icon"></span>
+          5.4 Operational Model
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_4_1" type="checkbox" id="__nav_1_6_4_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_4_1">
+          5.4.1 Logical Operational View
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="5.4.1 Logical Operational View" data-md-level="4">
+        <label class="md-nav__title" for="__nav_1_6_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          5.4.1 Logical Operational View
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Logical%20Operational%20View/lomview_rk4vWH-qt9KO_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Logical Location View - Initial
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Logical%20Operational%20View/lomview_S18vZHZqK9FO_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        LOM - Base
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Logical%20Operational%20View/lomview_SJ4GogkCd_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        LOM Base - new
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_7" type="checkbox" id="__nav_1_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_7">
+          10. Misc Diagram
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="10. Misc Diagram" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          10. Misc Diagram
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Misc%20Diagram/miscdiagram_2YqpSy18GKm_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Node Legend
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_8" type="checkbox" id="__nav_1_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_8">
+          11. Notes
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="11. Notes" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          11. Notes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Notes/notes_BkpMWSWct9Yd_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Definitions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Notes/notes_rkJ7WS-9F5Fd_r13-bc9lY_BJK24keC9/" class="md-nav__link">
+        Deployment Unit (DU) Mapping
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary __page_structure" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_page" type="checkbox" checked id="__nav_page">
+    <label id="__label_nav_page" class="md-nav__title md-nav__link page_structure" for="__nav_page">
+      On This Page
+      <span class="md-nav__icon md-icon" style="display: block;"></span>
+      </label>
+    </label>
+    <ul class="md-nav__list __list_nav_page" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#name" class="md-nav__link">
+    Name
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#status" class="md-nav__link">
+    Status
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#last-update" class="md-nav__link">
+    Last Update
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subject-area" class="md-nav__link">
+    Subject Area
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#topic" class="md-nav__link">
+    Topic
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#issue-or-problem-statement" class="md-nav__link">
+    Issue or Problem Statement
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assumptions" class="md-nav__link">
+    Assumptions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#motivation" class="md-nav__link">
+    Motivation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    Notes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternatives" class="md-nav__link">
+    Alternatives
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision" class="md-nav__link">
+    Decision
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#justification" class="md-nav__link">
+    Justification
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implications" class="md-nav__link">
+    Implications
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#derived-requirements" class="md-nav__link">
+    Derived Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-decisions" class="md-nav__link">
+    Related Decisions
+  </a>
+  
+</li>
+      
+    </ul>
+  
+  
+  
+</nav>
+
+<script>
+  var expand = document.getElementById('__nav_page');
+  var btn = document.getElementById('__label_nav_page');
+  var page = document.getElementsByClassName('__page_structure');
+  var list = document.getElementsByClassName('__list_nav_page');
+  if(expand){
+    expand.oninput = function () {
+      if (expand.checked) {
+        page[1].classList.remove('collapsed');
+        // list[1].classList.remove('collapsed');
+      }
+      else {
+        page[1].classList.add('collapsed');
+        // list[1].classList.add('collapsed');
+      }
+    }
+  }
+  
+</script>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+<h1 id="ad-0045">AD-0045<a class="headerlink" href="#ad-0045" title="Permanent link">&para;</a></h1>
+<h3 id="name">Name<a class="headerlink" href="#name" title="Permanent link">&para;</a></h3>
+<p>Cloud Offering</p>
+<h3 id="status">Status<a class="headerlink" href="#status" title="Permanent link">&para;</a></h3>
+<p>proposed</p>
+<h3 id="last-update">Last Update<a class="headerlink" href="#last-update" title="Permanent link">&para;</a></h3>
+<p>2020-06-17</p>
+<h3 id="subject-area">Subject Area<a class="headerlink" href="#subject-area" title="Permanent link">&para;</a></h3>
+<p>Cloud</p>
+<h3 id="topic">Topic<a class="headerlink" href="#topic" title="Permanent link">&para;</a></h3>
+<p>Offering Type and Region</p>
+<h3 id="issue-or-problem-statement">Issue or Problem Statement<a class="headerlink" href="#issue-or-problem-statement" title="Permanent link">&para;</a></h3>
+<p>Which Cloud offering to use?</p>
+<h3 id="assumptions">Assumptions<a class="headerlink" href="#assumptions" title="Permanent link">&para;</a></h3>
+<h3 id="motivation">Motivation<a class="headerlink" href="#motivation" title="Permanent link">&para;</a></h3>
+<h3 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h3>
+<p><a class="md-button same-line" href="#">Expand all</a></p>
+<h3 id="alternatives">Alternatives<a class="headerlink" href="#alternatives" title="Permanent link">&para;</a></h3>
+<details>
+<summary>IBM Cloud Public</summary>
+<table>
+    <caption></caption>
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tr>
+        <td> <strong>Name</strong> </td>
+        <td>IBM Cloud Public</td>
+    </tr>
+    <tr>
+        <td> <strong>Description</strong> </td>
+        <td>IBM Cloud Public</td>
+    </tr>
+    <tr>
+        <td> <strong>Best Applied</strong> </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> <strong>Contraindications</strong> </td>
+        <td></td>
+    </tr>
+</table>
+</details>
+<details>
+<summary>IBM Cloud Public (Dedicated Hosts or Instances)</summary>
+<table>
+    <caption></caption>
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tr>
+        <td> <strong>Name</strong> </td>
+        <td>IBM Cloud Public (Dedicated Hosts or Instances)</td>
+    </tr>
+    <tr>
+        <td> <strong>Description</strong> </td>
+        <td>IBM Cloud Public (Dedicated Hosts or Instances)</td>
+    </tr>
+    <tr>
+        <td> <strong>Best Applied</strong> </td>
+        <td>Guarantee single tenancy via dedicated virtual servers.</td>
+    </tr>
+    <tr>
+        <td> <strong>Contraindications</strong> </td>
+        <td></td>
+    </tr>
+</table>
+</details>
+<details>
+<summary>Virtual Private Cloud (IBM Cloud Public VPC)</summary>
+<table>
+    <caption></caption>
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tr>
+        <td> <strong>Name</strong> </td>
+        <td>Virtual Private Cloud (IBM Cloud Public VPC)</td>
+    </tr>
+    <tr>
+        <td> <strong>Description</strong> </td>
+        <td>VPC</td>
+    </tr>
+    <tr>
+        <td> <strong>Best Applied</strong> </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td> <strong>Contraindications</strong> </td>
+        <td></td>
+    </tr>
+</table>
+</details>
+<h3 id="decision">Decision<a class="headerlink" href="#decision" title="Permanent link">&para;</a></h3>
+<p>IBM Cloud Public (Dedicated Hosts or Instances)</p>
+<h3 id="justification">Justification<a class="headerlink" href="#justification" title="Permanent link">&para;</a></h3>
+<p>Requirement for true dedicated, single tenancy is what drove the decision.   </p>
+<h3 id="implications">Implications<a class="headerlink" href="#implications" title="Permanent link">&para;</a></h3>
+<h3 id="derived-requirements">Derived Requirements<a class="headerlink" href="#derived-requirements" title="Permanent link">&para;</a></h3>
+<h3 id="related-decisions">Related Decisions<a class="headerlink" href="#related-decisions" title="Permanent link">&para;</a></h3>
+
+
+
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../architecturaldecision_BJBTlHbcK5Kd_r13-bc9lY_BJK24keC9/" class="md-footer__link md-footer__link--prev" aria-label="Previous: What cloud service model to use" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              What cloud service model to use
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../architecturaldecision_r1M6lHW5tqFd_r13-bc9lY_BJK24keC9/" class="md-footer__link md-footer__link--next" aria-label="Next: API Gateway Realization Decision" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              API Gateway Realization Decision
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs.sticky"], "search": "../../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.9c69f0bc.min.js"></script>
+      
+        <script src="../../extra.js"></script>
+      
+    
+  </body>
+</html>
