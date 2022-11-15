@@ -1,11 +1,11 @@
 # Site Information
 site_name: Sample Solution Architecture
-site_url: git@github.com:glcraig/itaa-markdown
+site_url: https://github.com/glcraig/itaa-markdown
 # site_description: Sample Solution Architecture
 
 # # Repository Information
 # repo_name: itaa-markdown
-# repo_url: git@github.com:glcraig/itaa-markdown
+# repo_url: https://github.com/glcraig/itaa-markdown
 # edit_uri: 'edit/main/docs'
 docs_dir: 'docs'
 # # site_dir: 'site'
